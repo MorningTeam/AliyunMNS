@@ -1,6 +1,6 @@
 {
     "name": "aliyunmns/aliyunmns",
-    "description": "阿里云官方消息服务PHP SDK 1.3.2",
+    "description": "Aliyun Message Service PHP SDK 1.3.2",
     "type": "aliyunSDK",
     "require": {
         "php":">=5.5.0"
