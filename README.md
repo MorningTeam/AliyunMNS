@@ -1,6 +1,7 @@
 # Aliyun Message Service PHP SDK 1.3.2
 ## Requirements
 - PHP 5.5+
+
 ## Install
 ```
 composer require aliyunmns/aliyunmns
