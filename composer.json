@@ -3,7 +3,7 @@
     "description": "阿里云官方消息服务php SDK 1.3.2",
     "type": "aliyunSDK",
     "require": {
-        "php":">=5.5.0",
+        "php":">=5.5.0"
     },
     "autoload": {
         "files": ["mns-autoloader.php"],
