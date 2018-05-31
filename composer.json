@@ -13,5 +13,10 @@
     "psr-0": {
       "AliyunMNS": "./"
     }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.3.5"
+    }
   }
 }
