@@ -1,15 +1,17 @@
 {
-    "name": "aliyunmns/aliyunmns",
-    "description": "Aliyun Message Service PHP SDK 1.3.2 1",
-    "type": "aliyunSDK",
-    "require": {
-        "php":">=5.5.0",
-        "guzzlehttp/guzzle": "~6.2.1"
-    },
-    "autoload": {
-        "files": ["mns-autoloader.php"],
-        "psr-0": {
-            "AliyunMNS": "./"
-        }
+  "name": "morning/aliyunmns",
+  "description": "Aliyun Message Service PHP SDK 1.3.5",
+  "type": "library",
+  "require": {
+    "php": ">=5.5.0",
+    "guzzlehttp/guzzle": "~6.2.1"
+  },
+  "autoload": {
+    "files": [
+      "mns-autoloader.php"
+    ],
+    "psr-0": {
+      "AliyunMNS": "./"
     }
+  }
 }

@@ -4,7 +4,7 @@ Please refer to http://www.aliyun.com/product/mns and  https://docs.aliyun.com/?
 - PHP 5.5+
 ## Install
 ```
-composer require aliyunmns/aliyunmns
+composer require morning/aliyunmns
 ```
 ## Samples
 You must fulfill the AccessId/AccessKey/AccountID in the example before running.   

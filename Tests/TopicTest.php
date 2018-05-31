@@ -7,6 +7,9 @@ use AliyunMNS\Constants;
 use AliyunMNS\AsyncCallback;
 use AliyunMNS\Model\TopicAttributes;
 use AliyunMNS\Model\MailAttributes;
+use AliyunMNS\Model\SmsAttributes;
+use AliyunMNS\Model\BatchSmsAttributes;
+// use AliyunMNS\Model\WebSocketAttributes;
 use AliyunMNS\Model\MessageAttributes;
 use AliyunMNS\Model\SubscriptionAttributes;
 use AliyunMNS\Model\UpdateSubscriptionAttributes;
@@ -208,6 +211,78 @@ class TopicTest extends \PHPUnit_Framework_TestCase
         {
             $this->assertEquals($e->getMnsErrorCode(), Constants::TOPIC_NOT_EXIST);
         }
+    }
+
+    public function testPublishBatchSmsMessage()
+    {
+        $topicName = "testPublishBatchSmsMessage" . uniqid();
+
+        // now sub and send message
+        $messageBody = "test";
+        $bodyMD5 = md5($messageBody);
+
+        $topic = $this->prepareTopic($topicName);
+        try
+        {
+            $smsEndpoint = $topic->generateSmsEndpoint();
+
+            $subscriptionName = 'testSubscribeSubscription' . uniqid();
+            $attributes = new SubscriptionAttributes($subscriptionName, $smsEndpoint);
+            $topic->subscribe($attributes);
+
+            $batchSmsAttributes = new BatchSmsAttributes("陈舟锋", "SMS_15535414");
+            $batchSmsAttributes->addReceiver("13735576932", array("name" => "phpsdk-batchsms"));
+            $messageAttributes = new MessageAttributes(array($batchSmsAttributes));
+            $request = new PublishMessageRequest($messageBody, $messageAttributes);
+
+            $res = $topic->publishMessage($request);
+            $this->assertTrue($res->isSucceed());
+            $this->assertEquals(strtoupper($bodyMD5), $res->getMessageBodyMD5());
+            echo $res->getMessageId();
+            sleep(5);
+        }
+        catch (MnsException $e)
+        {
+            $this->assertTrue(FALSE, $e);
+        }
+
+        $this->client->deleteTopic($topic->getTopicName());
+    }
+
+    public function testPublishDirectSmsMessage()
+    {
+        $topicName = "testPublishDirectSmsMessage" . uniqid();
+
+        // now sub and send message
+        $messageBody = "test";
+        $bodyMD5 = md5($messageBody);
+
+        $topic = $this->prepareTopic($topicName);
+        try
+        {
+            $smsEndpoint = $topic->generateSmsEndpoint();
+
+            $subscriptionName = 'testSubscribeSubscription' . uniqid();
+            $attributes = new SubscriptionAttributes($subscriptionName, $smsEndpoint);
+            $topic->subscribe($attributes);
+
+            $smsParams = array("name" => "phpsdk");
+            $smsAttributes = new SmsAttributes("陈舟锋", "SMS_15535414", $smsParams, "13735576932");
+            $messageAttributes = new MessageAttributes($smsAttributes);
+            $request = new PublishMessageRequest($messageBody, $messageAttributes);
+
+            $res = $topic->publishMessage($request);
+            $this->assertTrue($res->isSucceed());
+            $this->assertEquals(strtoupper($bodyMD5), $res->getMessageBodyMD5());
+            echo $res->getMessageId();
+            sleep(5);
+        }
+        catch (MnsException $e)
+        {
+            $this->assertTrue(FALSE, $e);
+        }
+
+        $this->client->deleteTopic($topic->getTopicName());
     }
 
     public function testPublishMailMessage()
