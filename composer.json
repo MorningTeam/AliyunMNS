@@ -13,5 +13,12 @@
     "psr-0": {
       "AliyunMNS": "./"
     }
+  },
+  "minimum-stability": "master",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.0"
+    }
   }
 }
